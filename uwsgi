@@ -1,0 +1,34 @@
+#!/bin/bash
+# chkconfig: - 85 15
+uwsgi=/usr/local/bin/uwsgi
+api_conf=/etc/uwsgi/apps-enabled/myapp.ini
+
+
+case $1 in
+    start)
+        echo -n "Starting uWsgi"
+        nohup $uwsgi -i $api_conf >/tmp/uwsgi.log 2>&1 &
+        # nohup $uwsgi -i $web_conf >/var/log/uwsgi/project-web.log 2>&1 &
+        echo " done"
+    ;;
+
+    stop)
+        echo -n "Stopping uWsgi"
+        killall -9 uwsgi
+        echo " done"
+    ;;
+
+    restart)
+        $0 stop
+        $0 start
+    ;;
+
+    show)
+        ps -ef|grep uwsgi
+    ;;
+
+    *)
+        echo -n "Usage: $0 {start|restart|stop|show}"
+    ;;
+
+esac
