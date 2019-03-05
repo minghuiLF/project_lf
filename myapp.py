@@ -1,7 +1,11 @@
-from flask import Flask
+from flask import Flask,render_template
 
 app = Flask(__name__)
 
+
+
+
 @app.route('/')
 def index():
-    return "<span style = 'color: red'>I am app 1 </span>"
+
+    return render_template('index.html')
